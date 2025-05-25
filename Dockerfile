@@ -2,8 +2,7 @@ FROM  --platform=linux/amd64 node:22
 
 WORKDIR /usr/src/app
 
-COPY .env .env
-COPY package*.json ./
+COPY . .
 
 RUN npm install
 

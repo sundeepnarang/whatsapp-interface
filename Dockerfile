@@ -6,4 +6,6 @@ COPY . .
 
 RUN npm install
 
+EXPOSE 3005
+
 CMD [ "node", "bin/www" ]

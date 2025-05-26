@@ -5,9 +5,14 @@ var router = express.Router();
 
 router.post('/sendMessage', async function(req, res, next) {
   const {fromAccountName, templateName,recipient} = req.body;
-  const apiRes = await sendTemplate({fromAccountName, templateName,recipient})
-  console.log(`apiRes: ${JSON.stringify(apiRes, null, 2)}`);
-  return res.sendStatus(200);
+  try {
+    const apiRes = await sendTemplate({fromAccountName, templateName, recipient})
+    console.log(`apiRes: ${JSON.stringify(apiRes, null, 2)}`);
+    return res.sendStatus(200);
+  } catch (err) {
+    console.error("Errored: ",err);
+    return res.sendStatus(500);
+  }
 });
 
 router.all('/whatsappWebhook', async function(req, res){

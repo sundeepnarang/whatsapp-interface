@@ -9,6 +9,7 @@ async function sendTemplateMessage({
    recipient
 }) {
     console.log(`Sending template message with name '${templateName}'`);
+    console.log(`Components added '${components}'`);
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -24,6 +25,7 @@ async function sendTemplateMessage({
 
     const raw = JSON.stringify({
         "messaging_product": "whatsapp",
+        "recipient_type": "individual",
         "to": recipient,
         "type": "template",
         template

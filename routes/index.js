@@ -4,9 +4,9 @@ const {token} = require("morgan");
 var router = express.Router();
 
 router.post('/sendMessage', async function(req, res, next) {
-  const {fromAccountName, templateName,recipient,components=[]} = req.body;
+  const {fromAccountName, templateName,recipient,components=[],language} = req.body;
   try {
-    const apiRes = await sendTemplate({fromAccountName, templateName, recipient,components})
+    const apiRes = await sendTemplate({fromAccountName, templateName, language, recipient,components})
     console.log(`apiRes: ${JSON.stringify(apiRes, null, 2)}`);
     return res.sendStatus(200);
   } catch (err) {

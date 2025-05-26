@@ -7,6 +7,7 @@ async function sendTemplateMessage({
     },
    recipient
 }) {
+    console.log(`Sending template message with name '${templateName}'`);
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", `Bearer ${token}`);

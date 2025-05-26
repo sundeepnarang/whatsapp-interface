@@ -1,5 +1,6 @@
 var express = require('express');
 const {sendTemplate} = require("../library/templateSender");
+const {token} = require("morgan");
 var router = express.Router();
 
 router.post('/sendMessage', async function(req, res, next) {
@@ -14,8 +15,11 @@ router.all('/whatsappWebhook', async function(req, res){
   console.log("Whatsapp Webhook");
   console.log(`Query: ${JSON.stringify(req.query, null, 2)}`);
   console.log(`Body: ${JSON.stringify(req.body, null, 2)}`);
+  const {"hub.challenge":challenge} = req.query;
+  console.log(`Hub challenge: ${challenge}`);
+  console.log(`Sending challenge: ${challenge}`);
   console.log("============================================");
-  return res.sendStatus(200);
+  return res.send(challenge);
 });
 
 module.exports = router;

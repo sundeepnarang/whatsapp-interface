@@ -5,6 +5,7 @@ async function sendTemplateMessage({
    language= {
         "code": "en_US"
     },
+    components=[],
    recipient
 }) {
     console.log(`Sending template message with name '${templateName}'`);
@@ -12,14 +13,20 @@ async function sendTemplateMessage({
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", `Bearer ${token}`);
 
+    const template = {
+        "name": templateName,
+        "language": language,
+    }
+
+    if(components && components.length) {
+        template.components = components;
+    }
+
     const raw = JSON.stringify({
         "messaging_product": "whatsapp",
         "to": recipient,
         "type": "template",
-        "template": {
-            "name": templateName,
-            "language": language
-        }
+        template
     });
 
     const requestOptions = {

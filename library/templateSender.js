@@ -1,5 +1,5 @@
 const {sendTemplateMessage} = require("./whatsappApi.js")
-const {availableFromAccounts} = require("./initAccounts")
+const {availableFromAccounts} = require("./accountManager")
 
 function sendTemplate({fromAccountName, templateName,language,recipient,components}) {
     return new Promise((resolve, reject)=> {

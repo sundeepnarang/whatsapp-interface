@@ -2,8 +2,8 @@ import {sendTemplateMessage} from "./whatsappApi.js"
 import {availableFromAccounts} from "./accountManager.js"
 
 export function sendTemplate({fromAccountName, templateName,language,recipient,components}) {
-    return new Promise((resolve, reject)=> {
-        const fromAccount = availableFromAccounts.getAccount(fromAccountName);
+    return new Promise(async (resolve, reject) => {
+        const fromAccount = await availableFromAccounts.getAccount(fromAccountName);
         const {token, phoneNumberId} = fromAccount;
         if (fromAccount.hasTemplate(templateName)) {
             sendTemplateMessage({token, phoneNumberId, templateName, language, recipient, components})
@@ -13,7 +13,7 @@ export function sendTemplate({fromAccountName, templateName,language,recipient,c
                     resolve(result)
                 })
                 .catch((error) => {
-                    console.error("API Error: ",error)
+                    console.error("API Error: ", error)
                     reject(error)
                 });
         } else {

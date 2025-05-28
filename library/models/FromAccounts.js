@@ -16,7 +16,7 @@ export class FromAccounts {
         throw new Error(`Could not find a account with name '${name}'`);
     }
 
-    async updateAccount(accountName, value){
+    async updateAccount(name, value){
         if(this.accounts.hasOwnProperty(name)){
             return this.accounts[name] = value;
         }

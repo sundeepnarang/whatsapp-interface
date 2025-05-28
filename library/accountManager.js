@@ -1,6 +1,7 @@
-const FromAccount = require( "./models/FromAccount" );
-const FromAccounts = require( "./models/FromAccounts" );
-const {fromAccounts=[]} = require("./config");
+import {FromAccount} from  "./models/FromAccount.js" ;
+import {FromAccounts} from  "./models/FromAccounts.js" ;
+
+import {fromAccounts} from "./config.js";
 
 
 async function init() {
@@ -12,20 +13,16 @@ async function init() {
     return availableFromAccounts;
 }
 
-const availableFromAccounts = init()
+export const availableFromAccounts = await init()
 
-async function updateToken(accountName, accessToken) {
+export async function updateToken(accountName, accessToken) {
     const account = await availableFromAccounts.getAccount(accountName)
     account.accessToken = accessToken
     await availableFromAccounts.updateAccount(accountName, account)
 }
 
-async function addTemplate(accountName, template) {
+export async function addTemplate(accountName, template) {
     const account = await availableFromAccounts.getAccount(accountName)
     account.addTemplate(template)
     await availableFromAccounts.updateAccount(accountName, account)
 }
-
-exports.availableFromAccounts = availableFromAccounts;
-exports.addTemplate = addTemplate;
-exports.updateToken = updateToken;

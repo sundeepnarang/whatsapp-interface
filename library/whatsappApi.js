@@ -1,4 +1,4 @@
-async function sendTemplateMessage({
+export async function sendTemplateMessage({
    token,
    phoneNumberId,
    templateName="hello_world",
@@ -40,8 +40,3 @@ async function sendTemplateMessage({
 
     return await fetch(`https://graph.facebook.com/v22.0/${phoneNumberId}/messages`, requestOptions);
 }
-
-module.exports = {sendTemplateMessage};
-
-
-

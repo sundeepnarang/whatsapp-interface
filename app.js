@@ -1,11 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import createError from "http-errors";
+import {router as indexRouter} from './routes/index.js'
 
-var indexRouter = require('./routes/index');
+import express from "express";
 
-var app = express();
+import cookieParser from "cookie-parser";
+
+import logger from "morgan";
+
+export const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -29,5 +31,3 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-module.exports = app;

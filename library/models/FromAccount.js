@@ -1,4 +1,4 @@
-class FromAccount {
+export class FromAccount {
     constructor(token="", phoneNumberId="", templates=[]) {
         this.token = token;
         this.phoneNumberId = phoneNumberId;
@@ -15,5 +15,3 @@ class FromAccount {
         }
     }
 }
-
-module.exports = FromAccount;

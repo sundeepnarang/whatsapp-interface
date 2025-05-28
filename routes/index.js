@@ -1,8 +1,9 @@
-var express = require('express');
-const {sendTemplate} = require("../library/templateSender");
-const {token} = require("morgan");
-const {updateToken, addTemplate} = require("../library/accountManager");
-var router = express.Router();
+import express from 'express';
+
+import {sendTemplate} from "../library/templateSender.js";
+import {updateToken, addTemplate} from "../library/accountManager.js";
+
+export const router = express.Router();
 
 router.get('/health', (req, res) => {
   res.sendStatus(200)
@@ -49,5 +50,3 @@ router.all('/whatsappWebhook', async function(req, res){
   }
   console.log("============================================");
 });
-
-module.exports = router;

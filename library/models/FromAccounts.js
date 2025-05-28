@@ -1,6 +1,6 @@
-const FromAccount = require( "./FromAccount" );
+import {FromAccount} from  "./FromAccount.js" ;
 
-class FromAccounts {
+export class FromAccounts {
     constructor (){
         this.accounts = {}
     }
@@ -23,5 +23,3 @@ class FromAccounts {
         throw new Error(`Could not find a account with name '${name}'`);
     }
 }
-
-module.exports = FromAccounts;

@@ -1,7 +1,7 @@
-const {sendTemplateMessage} = require("./whatsappApi.js")
-const {availableFromAccounts} = require("./accountManager")
+import {sendTemplateMessage} from "./whatsappApi.js"
+import {availableFromAccounts} from "./accountManager.js"
 
-function sendTemplate({fromAccountName, templateName,language,recipient,components}) {
+export function sendTemplate({fromAccountName, templateName,language,recipient,components}) {
     return new Promise((resolve, reject)=> {
         const fromAccount = availableFromAccounts.getAccount(fromAccountName);
         const {token, phoneNumberId} = fromAccount;
@@ -21,5 +21,3 @@ function sendTemplate({fromAccountName, templateName,language,recipient,componen
         }
     });
 }
-
-exports.sendTemplate = sendTemplate;

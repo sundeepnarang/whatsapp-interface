@@ -10,9 +10,9 @@ router.get('/health', (req, res) => {
 })
 
 router.post('/sendMessage', async function(req, res, next) {
-  const {fromAccountName, templateName,recipient,components=[],language} = req.body;
+  const {fromAccountName, templateName,recipient,templateVars,language} = req.body;
   try {
-    const apiRes = await sendTemplate({fromAccountName, templateName, language, recipient,components})
+    const apiRes = await sendTemplate ({fromAccountName, templateName,language,recipient,templateVars})
     console.log(`apiRes: ${JSON.stringify(apiRes, null, 2)}`);
     return res.sendStatus(200);
   } catch (err) {

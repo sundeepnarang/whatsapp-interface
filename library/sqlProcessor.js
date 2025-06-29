@@ -37,7 +37,7 @@ SQLProcessor.prototype.storeRequest = async function ({fromApplicationName, reci
     const now = new Date().getTime();
     const insertQuery =
         `INSERT INTO ${this.notificationsTable} (
-                          [FromApplicationName],[RecepientNumber],[TemplateName],[TemplateVars]
+                          [FromApplicationName],[RecipientNumber],[TemplateName],[TemplateVars]
                           [CreatedOn],[SendBy],[SentOn],[UpdatedOn]
         ) VALUES (${fromApplicationName}, ${recipientNumber}, ${templateName}, ${JSON.stringify(templateVars)}, 
                   ${now}, ${now}, ${now}, ${now});

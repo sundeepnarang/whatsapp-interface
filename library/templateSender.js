@@ -1,6 +1,8 @@
 import {sendTemplateMessage} from "./whatsappApi.js"
 import {sqlProcessor} from "./sqlProcessor.js"
 
+const dryRUnApi = true;
+
 function templateVarsToComponents(templateName, templateVars){
     switch(templateName) {
         case "event_details_reminder_test":
@@ -67,6 +69,10 @@ export function sendTemplate ({fromAccountName, templateName,language,recipient,
             templateVars
         });
         const components = templateVarsToComponents(templateVars);
+        console.log("Template Vars: ",JSON.stringify(templateVars,null, 2));
+        if(dryRUnApi){
+            return resolve({dryRUnApi});
+        }
         sendTemplateMessage({token, phoneNumberId, templateName, language, recipient, components})
             .then((response) => response.text())
             .then((result) => {

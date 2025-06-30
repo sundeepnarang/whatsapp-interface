@@ -46,8 +46,12 @@ SQLProcessor.prototype.storeRequest = async function ({fromApplicationName, reci
         Select SCOPE_IDENTITY()  as LastRequestId`;
     const storeResultWrapper = await this.runQueryPromise(insertQuery);
     const storeResult = storeResultWrapper.recordset;
-    console.info("Inserted " + storeResult.LastRequestId + " to process!\n\r");
-    return storeResultWrapper.LastRequestId;
+    if(storeResult.length!==1) {
+        console.log("Insert error storeResultWrapper: ", storeResultWrapper);
+        throw new Error(`Insert error!`);
+    }
+    console.info("Inserted " + storeResult[0].LastRequestId + " to process!\n\r");
+    return storeResultWrapper[0].LastRequestId;
 }
 
 export const sqlProcessor = new SQLProcessor();

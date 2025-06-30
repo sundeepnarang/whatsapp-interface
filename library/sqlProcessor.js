@@ -11,10 +11,13 @@ const sqlPool = new sql.ConnectionPool({
 function SQLProcessor () {
     this.webhooksTable = "[DNN].[dbo].[SOS_WhatsappWebhookRequests]";
     this.notificationsTable = "[DNN].[dbo].[SOS_WhatsappNotificationRequests]";
-    this.applicationsTable = "[DNN].[dbo].[SOS_WHATSAPP_APPLICATION_CREDS]";
+    this.applicationsTable = "[DNN].[dbo].[SOS_Whatsapp_Application_Creds]";
 
-    this.runQuery = function (query,done) {return new sql.Request(query,done)};
-    this.runQueryPromise = function (query) {return new sql.Request(query)};
+    this.runQueryPromise = async function (query) {
+        console.log("Running Query: ", query);
+        const pool = await sqlPool.connect()
+        return  new sql.Request(pool).query(query);
+    };
 }
 
 SQLProcessor.prototype.getApplication = async function (applicationName) {
@@ -38,12 +41,11 @@ SQLProcessor.prototype.storeRequest = async function ({fromApplicationName, reci
     const insertQuery =
         `INSERT INTO ${this.notificationsTable} (
                           [FromApplicationName],[RecipientNumber],[TemplateName],[TemplateVars]
-                          [CreatedOn],[SendBy],[SentOn],[UpdatedOn]
-        ) VALUES (${fromApplicationName}, ${recipientNumber}, ${templateName}, ${JSON.stringify(templateVars)}, 
-                  ${now}, ${now}, ${now}, ${now});
+        ) VALUES ('${fromApplicationName}', '${recipientNumber}', '${templateName}', 
+                  '${JSON.stringify(templateVars).replace(/\'/g,"\\'" )}');
         Select SCOPE_IDENTITY()  as LastRequestId`;
     const storeResultWrapper = await this.runQueryPromise(insertQuery);
-    const storeResult = storeResultWrapper.LastRequestId;
+    const storeResult = storeResultWrapper.recordset;
     console.info("Inserted " + storeResult.LastRequestId + " to process!\n\r");
     return storeResultWrapper.LastRequestId;
 }

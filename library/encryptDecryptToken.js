@@ -1,8 +1,8 @@
 import crypto from "crypto";
 
-import config from "./config";
+import {tokens} from "./config.js";
 
-const {key,gToken} = config.tokens;
+const {key,gToken} = tokens;
 
 const algorithm = 'aes-256-ctr';
 const IV_LENGTH = 16;

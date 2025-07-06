@@ -2,7 +2,8 @@ import express from 'express';
 
 import {sendTemplate} from "../library/templateSender.js";
 import {updateToken} from "../library/accountManager.js";
-import {authReq} from "../library/encryptDecryptToken";
+import {authReq} from "../library/encryptDecryptToken.js";
+import {sqlProcessor} from "../library/sqlProcessor.js"
 
 export const router = express.Router();
 
@@ -41,7 +42,8 @@ router.all('/whatsappWebhook', async function(req, res){
     return res.send(challenge);
   }
   else {
-    return res.sendStatus(200);
+    res.sendStatus(200);
+    await sqlProcessor.storeHookMessage(req.body)
   }
   console.log("============================================");
 });

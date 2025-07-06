@@ -14,8 +14,8 @@ CREATE TABLE DNN.dbo.SOS_WhatsappNotificationRequests (
     WAMessageId nvarchar(255) NULL,
     WAMessageStatus nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT 'sent' NOT NULL,
     RequestStatus nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT 'SENT' NOT NULL,
-    CreatedOn datetime DEFAULT GET_DATE() NOT NULL,
-    SendBy datetime DEFAULT GET_DATE() NOT NULL,
-    SentOn datetime DEFAULT GET_DATE() NOT NULL,
+    CreatedOn datetime DEFAULT getdate() NOT NULL,
+    SendBy datetime DEFAULT getdate() NOT NULL,
+    SentOn datetime DEFAULT getdate() NOT NULL,
     CONSTRAINT PK_SOS_WANotificationRequestID PRIMARY KEY (WANotificationRequestID)
 );

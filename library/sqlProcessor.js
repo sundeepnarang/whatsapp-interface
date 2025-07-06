@@ -51,7 +51,7 @@ SQLProcessor.prototype.storeRequest = async function ({fromApplicationName, reci
         throw new Error(`Insert error!`);
     }
     console.info("Inserted " + storeResult[0].LastRequestId + " to process!\n\r");
-    return storeResultWrapper[0].LastRequestId;
+    return storeResult[0].LastRequestId;
 }
 
 export const sqlProcessor = new SQLProcessor();

@@ -1,7 +1,8 @@
 import express from 'express';
 
 import {sendTemplate} from "../library/templateSender.js";
-import {updateToken, addTemplate} from "../library/accountManager.js";
+import {updateToken} from "../library/accountManager.js";
+import {authReq} from "../library/encryptDecryptToken";
 
 export const router = express.Router();
 
@@ -9,7 +10,7 @@ router.get('/health', (req, res) => {
   res.sendStatus(200)
 })
 
-router.post('/sendMessage', async function(req, res, next) {
+router.post('/sendMessage', authReq, async function(req, res, next) {
   const {fromAccountName, templateName,recipient,templateVars,language} = req.body;
   try {
     const sendResult = await sendTemplate ({fromAccountName, templateName,language,recipient,templateVars})
@@ -22,16 +23,9 @@ router.post('/sendMessage', async function(req, res, next) {
   }
 });
 
-router.post("/updateToken", async function(req, res, next) {
+router.post("/updateToken",authReq, async function(req, res, next) {
   const {accName, accessToken} = req.body;
   await updateToken(accName, accessToken)
-  res.sendStatus(200);
-})
-
-
-router.post("/addTemplate", async function(req, res, next) {
-  const {accName, template} = req.body;
-  await addTemplate(accName, template)
   res.sendStatus(200);
 })
 

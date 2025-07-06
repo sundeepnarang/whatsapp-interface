@@ -61,6 +61,6 @@ export function createAuthToken() {
     return encryptData(JSON.stringify({
         reqTime: new Date().getTime(),
         reqRand: Math.round(Math.random()*RANDOM_MAX).toString(),
-        token
+        token: gToken
     }));
 }
